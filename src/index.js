@@ -4,14 +4,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
-// import ChatProvider from "./Context/ChatProvider";
+
 import { BrowserRouter } from "react-router-dom";
+import ChatProvider from "./context/ChatProvider";
+
 ReactDOM.render(
-  <ChakraProvider>
+  <ChatProvider>
+  {/* <ChakraProvider> */}
     <BrowserRouter>
         <App />
     </BrowserRouter>
-  </ChakraProvider>,
+  {/* </ChakraProvider> */}
+  </ChatProvider>,
   document.getElementById("root")
 );
 

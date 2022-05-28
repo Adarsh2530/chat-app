@@ -64,7 +64,7 @@ const Signup = () => {
   const submitHandler = async (e) => {
     e.preventDefault()
     setLoading(true)
-       if(!name || !password || !email || !picture)
+       if(!name || !password || !email)
        {
           toast({
          title: "please fill all the details",
@@ -86,16 +86,17 @@ const Signup = () => {
        }
        try
        {
-            const res =await  fetch("/api/user/pics",{
-              method:"POST",
-              headers:{
-                "Content-Type":"application/json",
-                "Accept":"application/json"
-              },
-              body: JSON.stringify({data:picture})
-            });
-            const json = await res.json();
-            const picurl = json.url;
+        //  let picurl;
+        //     const res =await  fetch("/api/user/pics",{
+        //       method:"POST",
+        //       headers:{
+        //         "Content-Type":"application/json",
+        //         "Accept":"application/json"
+        //       },
+        //       body: JSON.stringify({data:picture})
+        //     });
+        //     const json = await res.json();
+        //      picurl = json.url;
             const mongores = await  fetch("/api/user/register",{
               method:"POST",
               headers:{
@@ -106,7 +107,7 @@ const Signup = () => {
                 "email":email,
                 "password":password,
                 "name":name,
-                "pic":picurl 
+                
                 })
             });
             const userjson =await  mongores.json()
