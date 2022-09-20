@@ -18,10 +18,10 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [picture, setPicture] = useState("");
   const [show, setShow] = useState(false);
-  const [loading,setLoading] = useState(false)
-  const history = useHistory()
-  
-   const toast = useToast();
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+
+  const toast = useToast();
   const handleClick = () => {
     if (show === true) setShow(false);
     else setShow(true);
@@ -29,104 +29,98 @@ const Signup = () => {
 
   const postDetails = (pics) => {
     // setLoading(true);
-    if(pics===undefined)
-    {
-       toast({
-         title: "please select an image",
-         status: "warning",
-         duration: 9000,
-         isClosable: true,
-         position:"bottom"
-       });
+    if (pics === undefined) {
+      toast({
+        title: "please select an image",
+        status: "warning",
+        duration: 9000,
+        isClosable: true,
+        position: "bottom",
+      });
     }
 
-    if(pics.type === 'image/jpeg'||pics.type==='image/png'||pics.type==='image/jpg')
-    {
-         const reader = new FileReader();
-         reader.readAsDataURL(pics);
-         reader.onloadend = () => {
-         setPicture(reader.result);
-         };
-         
-    }
-    else
-    {
+    if (
+      pics.type === "image/jpeg" ||
+      pics.type === "image/png" ||
+      pics.type === "image/jpg"
+    ) {
+      const reader = new FileReader();
+      reader.readAsDataURL(pics);
+      reader.onloadend = () => {
+        setPicture(reader.result);
+      };
+    } else {
       toast({
-         title: "please select an image",
-         status: "warning",
-         duration: 9000,
-         isClosable: true,
-         position:"bottom"
-       });
+        title: "please select an image",
+        status: "warning",
+        duration: 9000,
+        isClosable: true,
+        position: "bottom",
+      });
     }
     // setLoading(false)
   };
   const submitHandler = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-       if(!name || !password || !email)
-       {
-          toast({
-         title: "please fill all the details",
-         status: "warning",
-         duration: 9000,
-         isClosable: true,
-         position:"bottom"
-       });
-       }
-        if (password !== confirmPassword)
-       {
-           toast({
-         title: "please write the password",
-         status: "warning",
-         duration: 9000,
-         isClosable: true,
-         position:"bottom"
-       });
-       }
-       try
-       {
-        //  let picurl;
-        //     const res =await  fetch("/api/user/pics",{
-        //       method:"POST",
-        //       headers:{
-        //         "Content-Type":"application/json",
-        //         "Accept":"application/json"
-        //       },
-        //       body: JSON.stringify({data:picture})
-        //     });
-        //     const json = await res.json();
-        //      picurl = json.url;
-            const mongores = await  fetch("/api/user/register",{
-              method:"POST",
-              headers:{
-                "Content-Type":"application/json",
-                "Accept":"application/json"
-              },
-              body: JSON.stringify({"name":name,
-                "email":email,
-                "password":password,
-                "name":name,
-                
-                })
-            });
-            const userjson =await  mongores.json()
-            console.log(userjson)
-            localStorage.setItem("userInfo", JSON.stringify(userjson));
-            history.push("/chats")
-            setLoading(false)
-          }
-          catch(error)
-          {
-               toast({
-         title: "some error occured",
-         status: "error",
-         duration: 9000,
-         isClosable: true,
-         position:"bottom" 
-          })
-        }
-        setLoading(false)
+    e.preventDefault();
+    setLoading(true);
+    if (!name || !password || !email) {
+      toast({
+        title: "please fill all the details",
+        status: "warning",
+        duration: 9000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
+    if (password !== confirmPassword) {
+      toast({
+        title: "please write the password",
+        status: "warning",
+        duration: 9000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
+    try {
+      let picurl;
+      // const res =await  fetch("/api/user/pics",{
+      //   method:"POST",
+      //   headers:{
+      //     "Content-Type":"application/json",
+      //     "Accept":"application/json"
+      //   },
+      //   body: JSON.stringify({data:picture})
+      // });
+      // const json = await res.json();
+      // picurl = json.url;
+      const mongores = await fetch("/api/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+          name: name,
+        }),
+      });
+      const userjson = await mongores.json();
+      console.log(userjson);
+      localStorage.setItem("userInfo", JSON.stringify(userjson));
+      history.push("/chats");
+      setLoading(false);
+    } catch (error) {
+      toast({
+        title: "some error occured",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
+    setLoading(false);
   };
   return (
     <VStack spacing="5px">
@@ -153,7 +147,7 @@ const Signup = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Input>
           <InputRightElement width={"4.5rem"}>
-            <Button h="1.75rem" size="sm" onClick={handleClick}>
+            <Button h="1.75rem"  size="sm" onClick={handleClick}>
               {show ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
